@@ -13,7 +13,6 @@ namespace IX_Mod
         /**
          * Here is where all the internal constants will go
          * 
-         * 
          */
         public const string NAME = "IX - The Nihility";
         public const string DESC_MECHANICS = "Nine can inflict human settlements with <b>Apathy</b>, causing society to crumble as people give up. As it spreads, rulers will eventually stop taking action and eventually disband their armies, crippling their own defences as their people slowly starve.";

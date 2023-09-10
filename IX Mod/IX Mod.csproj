@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\Shadows\GameData\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BloodshedGod, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -47,7 +47,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\Shadows\GameData\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
