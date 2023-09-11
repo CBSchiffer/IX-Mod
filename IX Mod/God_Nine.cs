@@ -33,6 +33,8 @@ namespace IX_Mod
             /**
              * Here is where the code for adding the new powers will go
              */
+            powers.Add(new P_TragicLecture(map));
+            powerLevelReqs.Add(0);
         }
 
         public override void onStart(Map map)
@@ -88,7 +90,7 @@ namespace IX_Mod
 
         public override Sprite getSupplicant()
         {
-            return EventManager.getImg("");
+            return EventManager.getImg("nihility.supplicant.png");
         }
 
         public override double getWorldPanicOnAwake()
@@ -126,7 +128,7 @@ namespace IX_Mod
         public override List<Trait> getSupplicantStartingTraits()
         {
             List<Trait> traits = new List<Trait>();
-            //traits.Add(new T_TheScentOfPrey());
+            traits.Add(new T_ManInCover());
             return traits;
         }
     }

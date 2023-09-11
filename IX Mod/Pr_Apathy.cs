@@ -11,9 +11,9 @@ namespace IX_Mod
     {
         public List<Challenge> challenges = new List<Challenge>();
 
-        public Pr_Apathy(Location loc) : base(loc)
+        public Pr_Apathy(Location loc, int charge = 1) : base(loc)
         {
-            charge = 1;
+            this.charge = charge;
         }
 
         public override string getName()
