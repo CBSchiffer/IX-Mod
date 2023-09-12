@@ -30,6 +30,26 @@ namespace IX_Mod
         {
             base.turnTick();
             influences.Add(new ReasonMsg("Despair", 1));
+
+            // Remove the Supplicant's influence if they are not present.
+            foreach(ReasonMsg msg in influences)
+            {
+                if(msg.msg.Equals("Supplicant's Gospel"))
+                {
+                    bool pres = false;
+                    foreach(Unit unit in location.units)
+                    {
+                        if(unit is UAE_Supplicant)
+                        {
+                            pres = true;
+                        }
+                    }
+                    if(pres == false)
+                    {
+                        influences.Remove(msg);
+                    }
+                }
+            }
         }
 
         public override string getDesc()

@@ -12,7 +12,6 @@ namespace IX_Mod
     {
         /**
          * Here is where all the internal constants will go
-         * 
          */
         public const string NAME = "IX - The Nihility";
         public const string DESC_MECHANICS = "Nine can inflict human settlements with <b>Apathy</b>, causing society to crumble as people give up. As it spreads, rulers will eventually stop taking action and eventually disband their armies, crippling their own defences as their people slowly starve.";
@@ -129,6 +128,8 @@ namespace IX_Mod
         {
             List<Trait> traits = new List<Trait>();
             traits.Add(new T_ManInCover());
+            traits.Add(new T_GospelDespair());
+            traits.Add(new T_Ignosticism());
             return traits;
         }
     }

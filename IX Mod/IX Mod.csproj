@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="P_TragicLecture.cs" />
+    <Compile Include="T_ApostleIX.cs" />
+    <Compile Include="T_GospelDespair.cs" />
+    <Compile Include="T_Ignosticism.cs" />
     <Compile Include="T_ManInCover.cs" />
     <Compile Include="God_Nine.cs" />
     <Compile Include="IX_Main.cs" />
