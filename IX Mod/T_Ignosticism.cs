@@ -38,10 +38,12 @@ namespace IX_Mod
         {
             base.turnTick(p);
             Location loc = p.getLocation();
+            bool found = false;
             foreach (Property pr in loc.properties)
             {
                 if (pr is Pr_Apathy apathy)
                 {
+                    found = true;
                     if (apathy.charge >= 50)
                     {
                         if (!increased)
@@ -67,15 +69,28 @@ namespace IX_Mod
 
                 }
             }
+            if (!found)
+            {
+                if (increased)
+                {
+                    increased = false;
+                    this.assignedTo.stat_might -= 2;
+                    this.assignedTo.stat_lore -= 2;
+                    this.assignedTo.stat_intrigue -= 2;
+                    this.assignedTo.stat_command -= 2;
+                }
+            }
         }
 
         public override void onMove(Location current, Location dest)
         {
             base.onMove(current, dest);
+            bool found = false;
             foreach (Property pr in dest.properties)
             {
                 if (pr is Pr_Apathy apathy)
                 {
+                    found = true;
                     if (apathy.charge >= 50)
                     {
                         if(!increased)
@@ -89,6 +104,17 @@ namespace IX_Mod
                     } else
                     {
                         if(increased)
+                        {
+                            increased = false;
+                            this.assignedTo.stat_might -= 2;
+                            this.assignedTo.stat_lore -= 2;
+                            this.assignedTo.stat_intrigue -= 2;
+                            this.assignedTo.stat_command -= 2;
+                        }
+                    }
+                    if(!found)
+                    {
+                        if (increased)
                         {
                             increased = false;
                             this.assignedTo.stat_might -= 2;
