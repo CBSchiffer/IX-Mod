@@ -10,10 +10,16 @@ namespace IX_Mod
     internal class Pr_Apathy : Property
     {
         public List<Challenge> challenges = new List<Challenge>();
+        public Challenge challenge;
 
         public Pr_Apathy(Location loc, int charge = 1) : base(loc)
         {
             this.charge = charge;
+
+            challenge = new Ch_CombatApathy(loc);
+            challenges.Add(challenge);
+            challenge = new Ch_PreachApathy(loc);
+            challenges.Add(challenge);
         }
 
         public override string getName()
@@ -50,6 +56,16 @@ namespace IX_Mod
                     }
                 }
             }
+        }
+
+        public override double getProsperityInfluence()
+        {
+            return 0.0 - charge / 100.0;
+        }
+
+        public override int getSecurityChange(SettlementHuman hum)
+        {
+            return (int)(0.0 - Math.Round(charge / 20));
         }
 
         public override string getDesc()

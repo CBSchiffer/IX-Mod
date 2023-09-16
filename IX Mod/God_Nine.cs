@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Code;
 using UnityEngine;
+using static SortedDictionaryProvider;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace IX_Mod
 {
@@ -34,6 +36,8 @@ namespace IX_Mod
              */
             powers.Add(new P_TragicLecture(map));
             powerLevelReqs.Add(0);
+            powers.Add(new P_ChooseApostle(map));
+            powerLevelReqs.Add(3);
         }
 
         public override void onStart(Map map)
@@ -131,6 +135,39 @@ namespace IX_Mod
             traits.Add(new T_GospelDespair());
             traits.Add(new T_Ignosticism());
             return traits;
+        }
+
+        // Returns the integer ID of the tag given in string form.
+        public static int Observe(string tag)
+        {
+            int num = -1;
+            for (int i = 0; i < Tags.names.Length; i++)
+            {
+                if (tag == Tags.names[i])
+                {
+                    num = i;
+                }
+            }
+
+            if(num == -1)
+            {
+                for(int j = 0; j < Tags.namesEnemies.Length; j++)
+                {
+                    if(tag == Tags.namesEnemies[j])
+                    {
+                        num = j + 100;
+                    }
+                }
+            }
+
+            if (num != -1)
+            {
+                if (Tags.getName(num) != tag)
+                {
+                    throw new Exception("Failure to retrieve tag " + num + " lookup target: " + tag);
+                }
+            }
+            return num;
         }
     }
 }

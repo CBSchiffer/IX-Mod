@@ -18,5 +18,12 @@ namespace IX_Mod
             gods.Add(new God_Nine());
             base.onStartGamePresssed(map, gods);
         }
+
+        public override void beforeMapGen(Map map)
+        {
+            base.beforeMapGen(map);
+            Tags.addTagEnemy("IX");
+            Tags.addTagEnemy("Apathy");
+        }
     }
 }

@@ -51,6 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ch_CombatApathy.cs" />
+    <Compile Include="Ch_PreachApathy.cs" />
+    <Compile Include="P_ChooseApostle.cs" />
     <Compile Include="P_TragicLecture.cs" />
     <Compile Include="T_ApostleIX.cs" />
     <Compile Include="T_GospelDespair.cs" />
