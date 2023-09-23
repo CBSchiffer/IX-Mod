@@ -35,9 +35,6 @@ namespace IX_Mod
              * Here is where the code for adding the new powers will go
              */
             powers.Add(new P_TragicLecture(map));
-            powers.Add(new P_DevilMakesWork(map));
-            powers.Add(new P_ForIdleHands(map));
-            powers.Add(new P_Fascinate(map));
             powerLevelReqs.Add(0);
             powers.Add(new P_ChooseApostle(map));
             powerLevelReqs.Add(3);
