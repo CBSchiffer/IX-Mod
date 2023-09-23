@@ -125,12 +125,12 @@ namespace IX_Mod
 
         public override int[] buildPositiveTags()
         {
-            return new int[5] { Tags.DISCORD, Tags.AMBITION, Tags.SHADOW, God_Nine.Observe("Apathy"), God_Nine.Observe("IX") };
+            return new int[4] { Tags.DISCORD, Tags.SHADOW, God_Nine.Observe("Apathy"), God_Nine.Observe("IX") };
         }
 
         public override int[] buildNegativeTags()
         {
-            return new int[1] { Tags.COOPERATION };
+            return new int[2] { Tags.COOPERATION, Tags.AMBITION };
         }
 
         

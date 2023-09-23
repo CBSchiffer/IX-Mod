@@ -1,4 +1,6 @@
 ﻿using Assets.Code;
+using LivingCharacters;
+using ShadowsLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,15 @@ namespace IX_Mod
     internal class T_ApostleIX : Trait
     {
         protected Random rnd;
+        public int strength;
+        public bool embrace;
 
         public T_ApostleIX() 
         {
             level = 1;
+            strength = 1;
             rnd = new Random();
+            embrace = false;
         }
 
         
@@ -27,30 +33,68 @@ namespace IX_Mod
 
         public override int getMaxLevel()
         {
-            return 20;
+            return 1;
         }
 
         public override string getName()
         {
-            return "Apostle of IX";
+            return "Apostle of IX (" + strength + ")";
         }
+
 
         public override void turnTick(Person p)
         {
+            Assets.Code.Map map = this.assignedTo.getLocation().map;
             base.turnTick(p);
             Location loc = p.getLocation();
 
             UA ua = p.unit as UA;
 
+            bool flag = false;
+            bool flag2 = false;
+            foreach (Ritual ritual in p.unit.rituals)
+            {
+                if (ritual is Rt_EmbraceIX && !embrace)
+                {
+                    flag = true;
+                    break;
+                }
+                if(ritual is Rt_WellShadow)
+                {
+                    flag2 = true;
+                    break;
+                }
+            }
+            
+            
+            if (!flag)
+            {
+                ua.rituals.Add(new Rt_EmbraceIX(ua.location, ua, this));
+            }
+            if(!flag2)
+            {
+                if(ua.location.settlement.isHuman)
+                {
+                    ua.rituals.Add(new Rt_WellShadow(ua.location, ua.location.settlement as SettlementHuman));
+                }
+            }
+
             // Increases the victim's shadow by one every turn.
-            if (p.shadow < 100)
+            if(embrace)
             {
-                p.shadow += 1;
-            }
-            else
+                assignedTo.shadow = 0;
+            } else
             {
-                p.shadow = 100;
+                if (assignedTo.shadow < 100)
+                {
+                    assignedTo.shadow += .01;
+                }
+                else
+                {
+                    assignedTo.shadow = 1;
+                }
             }
+            
 
             
 
@@ -58,20 +102,20 @@ namespace IX_Mod
              * Ticks a timer every turn. Once the timer reaches 20, it resets to 1, increases menace, and applies an effect.
              * This effect varies depending on the state of the person.
              */
-
-            if (level < 20)
+            if (strength < 10)
             {
-                level++;
+                strength++;
             } else
             {
-                level = 1;
-                if(p.shadow >= 100)
+                strength = 1;
+                if(p.shadow >= 1 || embrace)
                     ua.setMenace(ua.menace + 15);
                 int totxp = p.XP + p.XPForNextLevel;
-                p.receiveXP((int) Math.Round(totxp * 0.5));
-                p.addGold((int) Math.Round(p.getGold() * 0.5));
+                assignedTo.receiveXP((int) Math.Round(totxp * 0.5 + 25));
+                if(embrace)
+                    assignedTo.receiveXP((int)Math.Round(totxp * 0.2));
+                assignedTo.addGold((int) Math.Round(p.getGold() * 0.5 + 10));
                 int counter = 0;
-
                 loop:
                 counter++;
                 int choice = rnd.Next(0, 5);
@@ -97,11 +141,27 @@ namespace IX_Mod
                                 else
                                 {
                                     p.extremeHates.Add(index);
+                                    p.hates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a vehement hatred of Ambition.", "IX'S EMPOWERMENT", force: true);
                                 }
                             }
                             else
                             {
-                                p.hates.Add(index);
+                                if (ehts.Contains(index))
+                                {
+                                    // Go next
+                                    goto loop;
+                                }
+                                else
+                                {
+                                    p.hates.Add(index);
+                                    p.extremeHates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a dislike of Ambition.", "IX'S EMPOWERMENT", force: true);
+                                }
                             }
                             break;
                         case 1:
@@ -116,11 +176,27 @@ namespace IX_Mod
                                 else
                                 {
                                     p.extremeHates.Add(index);
+                                    p.hates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a vehement hatred of Co-Operation.", "IX'S EMPOWERMENT", force: true);
                                 }
                             }
                             else
                             {
-                                p.hates.Add(index);
+                                if (ehts.Contains(index))
+                                {
+                                    // Go next
+                                    goto loop;
+                                }
+                                else
+                                {
+                                    p.hates.Add(index);
+                                    p.extremeHates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a dislike of Co-Operation.", "IX'S EMPOWERMENT", force: true);
+                                }
                             }
                             break;
                         case 2:
@@ -135,11 +211,27 @@ namespace IX_Mod
                                 else
                                 {
                                     p.extremeHates.Add(index);
+                                    p.hates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a vehement hatred of Gold.", "IX'S EMPOWERMENT", force: true);
                                 }
                             }
                             else
                             {
-                                p.hates.Add(index);
+                                if (ehts.Contains(index))
+                                {
+                                    // Go next
+                                    goto loop;
+                                }
+                                else
+                                {
+                                    p.hates.Add(index);
+                                    p.extremeHates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a dislike of Gold.", "IX'S EMPOWERMENT", force: true);
+                                }
                             }
                             break;
                         case 3:
@@ -153,12 +245,28 @@ namespace IX_Mod
                                 }
                                 else
                                 {
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining an extreme liking of Shadow.", "IX'S EMPOWERMENT", force: true);
                                     p.extremeLikes.Add(index);
+                                    p.hates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeHates.Remove(index);
                                 }
                             }
                             else
                             {
-                                p.likes.Add(index);
+                                if (elks.Contains(index))
+                                {
+                                    // Go next
+                                    goto loop;
+                                }
+                                else
+                                {
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a liking of Shadow.", "IX'S EMPOWERMENT", force: true);
+                                    p.likes.Add(index);
+                                    p.hates.Remove(index);
+                                    p.extremeHates.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                }
                             }
                             break;
                         case 4:
@@ -172,12 +280,28 @@ namespace IX_Mod
                                 }
                                 else
                                 {
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining an extreme liking of IX.", "IX'S EMPOWERMENT", force: true);
                                     p.extremeLikes.Add(index);
+                                    p.hates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeHates.Remove(index);
                                 }
                             }
                             else
                             {
-                                p.likes.Add(index);
+                                if (elks.Contains(index))
+                                {
+                                    // Go next
+                                    goto loop;
+                                }
+                                else
+                                {
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a liking of IX.", "IX'S EMPOWERMENT", force: true);
+                                    p.likes.Add(index);
+                                    p.hates.Remove(index);
+                                    p.extremeHates.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                }
                             }
                             break;
                         default:
@@ -191,12 +315,28 @@ namespace IX_Mod
                                 }
                                 else
                                 {
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining an extreme liking of Apathy.", "IX'S EMPOWERMENT", force: true);
                                     p.extremeLikes.Add(index);
+                                    p.hates.Remove(index);
+                                    p.likes.Remove(index);
+                                    p.extremeHates.Remove(index);
                                 }
                             }
                             else
                             {
-                                p.likes.Add(index);
+                                if (elks.Contains(index))
+                                {
+                                    // Go next
+                                    goto loop;
+                                }
+                                else
+                                {
+                                    map.addUnifiedMessage(assignedTo, assignedTo, "Corruption of IX", assignedTo.getName() + " is falling further under IX's influence, gaining a liking of Apathy.", "IX'S EMPOWERMENT", force: true);
+                                    p.likes.Add(index);
+                                    p.hates.Remove(index);
+                                    p.extremeHates.Remove(index);
+                                    p.extremeLikes.Remove(index);
+                                }
                             }
                             break;
                     }
@@ -208,15 +348,19 @@ namespace IX_Mod
                     {
                         case 0:
                             p.receiveTrait(new T_StatIntrigue());
+                            map.addUnifiedMessage(assignedTo, assignedTo, "Empowerment of IX", assignedTo.getName() + " is being empowered by IX's influence, permanately increasing their intrigue.", "IX'S EMPOWERMENT", force: true);
                             break;
                         case 1:
                             p.receiveTrait(new T_StatMight());
+                            map.addUnifiedMessage(assignedTo, assignedTo, "Empowerment of IX", assignedTo.getName() + " is being empowered by IX's influence, permanately increasing their might.", "IX'S EMPOWERMENT", force: true);
                             break;
                         case 2:
                             p.receiveTrait(new T_StatLore());
+                            map.addUnifiedMessage(assignedTo, assignedTo, "Empowerment of IX", assignedTo.getName() + " is being empowered by IX's influence, permanately increasing their lore.", "IX'S EMPOWERMENT", force: true);
                             break;
                         default:
                             p.receiveTrait(new T_StatCommand());
+                            map.addUnifiedMessage(assignedTo, assignedTo, "Empowerment of IX", assignedTo.getName() + " is being empowered by IX's influence, permanately increasing their command.", "IX'S EMPOWERMENT", force: true);
                             break;
                     }
                 }

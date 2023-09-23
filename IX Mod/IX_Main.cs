@@ -22,8 +22,12 @@ namespace IX_Mod
         public override void beforeMapGen(Map map)
         {
             base.beforeMapGen(map);
-            Tags.addTagEnemy("IX");
-            Tags.addTagEnemy("Apathy");
+            if(map.overmind.god.getName().Equals("IX - The Nihility"))
+            {
+                Tags.addTagEnemy("IX");
+                Tags.addTagEnemy("Apathy");
+            }
+            
         }
     }
 }

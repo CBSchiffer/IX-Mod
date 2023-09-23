@@ -38,6 +38,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\1741640\2879207914\BloodshedGod.dll</HintPath>
     </Reference>
+    <Reference Include="LivingCharacters">
+      <HintPath>.\LivingCharacters.dll</HintPath>
+    </Reference>
+    <Reference Include="ShadowsLib">
+      <HintPath>.\ShadowsLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,6 +61,8 @@
     <Compile Include="Ch_PreachApathy.cs" />
     <Compile Include="P_ChooseApostle.cs" />
     <Compile Include="P_TragicLecture.cs" />
+    <Compile Include="Rt_EmbraceIX.cs" />
+    <Compile Include="Rt_WellShadow.cs" />
     <Compile Include="T_ApostleIX.cs" />
     <Compile Include="T_GospelDespair.cs" />
     <Compile Include="T_Ignosticism.cs" />

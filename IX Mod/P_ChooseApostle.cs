@@ -68,7 +68,6 @@ namespace IX_Mod
         {
             return false; ;
         }
-
         public override void cast(Unit unit)
         {
             base.cast(unit);
