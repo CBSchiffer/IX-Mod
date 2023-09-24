@@ -56,6 +56,28 @@ namespace IX_Mod
                     }
                 }
             }
+            if(charge >= 100)
+            {
+                foreach(Location loc in location.getNeighbours())
+                {
+                    if(loc.settlement != null && loc.settlement.isHuman)
+                    {
+                        bool flag = false;
+                        foreach(Property prop in loc.properties)
+                        {
+                            if(prop is Pr_Apathy)
+                            {
+                                flag = true;
+                                break;
+                            }
+                        }
+                        if(!flag)
+                        {
+                            loc.properties.Add(new Pr_Apathy(loc, 1));
+                        }
+                    }
+                }
+            }
         }
 
         public override double getProsperityInfluence()
@@ -70,7 +92,7 @@ namespace IX_Mod
 
         public override string getDesc()
         {
-            return "People in this location are starting to give up. <b>Security</b> will decrease and <b>Hunger</b> will increase over time as the populace stops caring.";
+            return "People in this location are starting to give up. <b>Security</b> will decrease and <b>Hunger</b> will increase over time as the populace stops caring. Once charge is greater than 100%, <b>Apathy</b> can begin spreading to nearby settlements.";
         }
 
         public override bool deleteOnZero()

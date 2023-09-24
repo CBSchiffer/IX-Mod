@@ -62,6 +62,7 @@
     <Compile Include="P_ChooseApostle.cs" />
     <Compile Include="P_TragicLecture.cs" />
     <Compile Include="Rt_EmbraceIX.cs" />
+    <Compile Include="Rt_SpreadDespair.cs" />
     <Compile Include="Rt_WellShadow.cs" />
     <Compile Include="T_ApostleIX.cs" />
     <Compile Include="T_GospelDespair.cs" />

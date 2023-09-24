@@ -77,6 +77,7 @@ namespace IX_Mod
                 {
                     ua.rituals.Add(new Rt_WellShadow(ua.location, ua.location.settlement as SettlementHuman));
                 }
+                ua.rituals.Add(new Rt_SpreadDespair(ua.location, ua));
             }
 
             // Increases the victim's shadow by one every turn.
@@ -344,23 +345,60 @@ namespace IX_Mod
                 else
                 {
                     choice = rnd.Next(0, 4);
+                    bool found = false;
                     switch (choice)
                     {
                         case 0:
-                            p.receiveTrait(new T_StatIntrigue());
                             map.addUnifiedMessage(assignedTo, assignedTo, "Empowerment of IX", assignedTo.getName() + " is being empowered by IX's influence, permanately increasing their intrigue.", "IX'S EMPOWERMENT", force: true);
+                            foreach(Trait t in p.traits)
+                            {
+                                if(t is T_StatIntrigue si)
+                                {
+                                    si.level++;
+                                    found = true;
+                                }
+                            }
+                            if(!found)
+                                p.receiveTrait(new T_StatIntrigue());
                             break;
                         case 1:
-                            p.receiveTrait(new T_StatMight());
                             map.addUnifiedMessage(assignedTo, assignedTo, "Empowerment of IX", assignedTo.getName() + " is being empowered by IX's influence, permanately increasing their might.", "IX'S EMPOWERMENT", force: true);
+                            foreach (Trait t in p.traits)
+                            {
+                                if (t is T_StatMight sm)
+                                {
+                                    sm.level++;
+                                    found = true;
+                                }
+                            }
+                            if (!found)
+                                p.receiveTrait(new T_StatMight());
                             break;
                         case 2:
-                            p.receiveTrait(new T_StatLore());
                             map.addUnifiedMessage(assignedTo, assignedTo, "Empowerment of IX", assignedTo.getName() + " is being empowered by IX's influence, permanately increasing their lore.", "IX'S EMPOWERMENT", force: true);
+                            foreach (Trait t in p.traits)
+                            {
+                                if (t is T_StatLore sl)
+                                {
+                                    sl.level++;
+                                    found = true;
+                                }
+                            }
+                            if (!found)
+                                p.receiveTrait(new T_StatLore());
                             break;
                         default:
-                            p.receiveTrait(new T_StatCommand());
                             map.addUnifiedMessage(assignedTo, assignedTo, "Empowerment of IX", assignedTo.getName() + " is being empowered by IX's influence, permanately increasing their command.", "IX'S EMPOWERMENT", force: true);
+                            foreach (Trait t in p.traits)
+                            {
+                                if (t is T_StatCommand sc)
+                                {
+                                    sc.level++;
+                                    found = true;
+                                }
+                            }
+                            if (!found)
+                                p.receiveTrait(new T_StatCommand());
                             break;
                     }
                 }

@@ -46,21 +46,26 @@ namespace IX_Mod
 
         public override bool validTarget(Location loc)
         {
-            foreach (Property prop in loc.properties)
+            if(loc != null && loc.settlement != null)
             {
-                if(prop is Pr_Apathy ap)
-                {
+                if (!loc.settlement.isHuman)
                     return false;
-                }
-            }
-            foreach (Unit u in loc.units)
-            {
-                if(u.isCommandable())
+                foreach (Property prop in loc.properties)
                 {
-                    return true;
+                    if (prop is Pr_Apathy ap)
+                    {
+                        return false;
+                    }
+                }
+                foreach (Unit u in loc.units)
+                {
+                    if (u.isCommandable())
+                    {
+                        return true;
+                    }
                 }
             }
-            return false; ;
+            return false;
         }
 
         public override void cast(Location loc)
