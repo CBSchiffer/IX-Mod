@@ -73,7 +73,7 @@ namespace IX_Mod
             }
             if(!flag2)
             {
-                if(ua.location.settlement.isHuman)
+                if(ua.location.settlement != null && ua.location.settlement.isHuman)
                 {
                     ua.rituals.Add(new Rt_WellShadow(ua.location, ua.location.settlement as SettlementHuman));
                 }
@@ -103,7 +103,7 @@ namespace IX_Mod
              * Ticks a timer every turn. Once the timer reaches 20, it resets to 1, increases menace, and applies an effect.
              * This effect varies depending on the state of the person.
              */
-            if (strength < 10)
+            if (strength < 2)
             {
                 strength++;
             } else

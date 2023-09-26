@@ -30,7 +30,7 @@ namespace IX_Mod
             Location loc = p.getLocation();
             if (loc != null)
             {
-                foreach (Property pr in loc.properties)
+                foreach (Property pr in loc.properties.ToList())
                 {
                     if (pr is Pr_Apathy apathy)
                     {

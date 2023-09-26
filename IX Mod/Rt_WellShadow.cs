@@ -92,7 +92,7 @@ namespace IX_Mod
             {
                 return false;
             }
-            foreach(Property prop in location.properties)
+            foreach(Property prop in location.properties.ToList())
             {
                 if(prop is Pr_WellOfShadows shad)
                 {

@@ -19,7 +19,7 @@ namespace IX_Mod
         }
         public override double getMenace()
         {
-            foreach (Property prop in base.location.properties)
+            foreach (Property prop in base.location.properties.ToList())
             {
                 if (prop is Pr_Apathy ap)
                 {
@@ -47,7 +47,7 @@ namespace IX_Mod
 
         public override double getProfile()
         {
-            foreach (Property prop in base.location.properties)
+            foreach (Property prop in base.location.properties.ToList())
             {
                 if (prop is Pr_Apathy ap)
                 {
@@ -96,13 +96,13 @@ namespace IX_Mod
 
         public override void complete(UA u)
         {
-            foreach (Property prop in base.location.properties)
+            foreach (Property prop in base.location.properties.ToList())
             {
                 if (prop is Pr_Apathy ap)
                 {
                     ap.charge = ap.charge + 25;
                     charge = ap.charge;
-                    foreach (Property prop2 in base.location.properties)
+                    foreach (Property prop2 in base.location.properties.ToList())
                     {
                         if (prop2 is Pr_Unrest unr)
                         {

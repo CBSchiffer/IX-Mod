@@ -39,7 +39,7 @@ namespace IX_Mod
             base.turnTick(p);
             Location loc = p.getLocation();
             bool found = false;
-            foreach (Property pr in loc.properties)
+            foreach (Property pr in loc.properties.ToList())
             {
                 if (pr is Pr_Apathy apathy)
                 {
@@ -86,7 +86,7 @@ namespace IX_Mod
         {
             base.onMove(current, dest);
             bool found = false;
-            foreach (Property pr in dest.properties)
+            foreach (Property pr in dest.properties.ToList())
             {
                 if (pr is Pr_Apathy apathy)
                 {

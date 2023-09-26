@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 
 namespace IX_Mod
 {
-    internal class P_TragicLecture : Power
+    internal class P_SelfDeceit : Power
     {
-        public P_TragicLecture(Map map) : base(map)
+        public P_SelfDeceit(Map map) : base(map)
         {
 
         }
 
         public override int getCost()
         {
-            return 1;
+            return 0;
         }
 
         public override string getName()
         {
-            return "Tragic Lecture";
+            return "Café Self-Deceit";
         }
 
         public override string getDesc()
         {
-            return "Start <b>Apathy</b> in a settlement.";
+            return "Doubles Apathy in the specified location.";
         }
 
         public override string getFlavour()
@@ -36,7 +36,7 @@ namespace IX_Mod
 
         public override string getRestrictionText()
         {
-            return "Must target a settlement with an agent that doesn't already have the <b>Apathy</b> modifier.";
+            return "Must target a settlement with the <b>Apathy</b> modifier.";
         }
 
         public override bool validTarget(Unit unit)
@@ -46,20 +46,13 @@ namespace IX_Mod
 
         public override bool validTarget(Location loc)
         {
-            if(loc != null && loc.settlement != null)
+            if (loc != null && loc.settlement != null)
             {
                 if (!loc.settlement.isHuman)
                     return false;
                 foreach (Property prop in loc.properties.ToList())
                 {
                     if (prop is Pr_Apathy ap)
-                    {
-                        return false;
-                    }
-                }
-                foreach (Unit u in loc.units)
-                {
-                    if (u.isCommandable())
                     {
                         return true;
                     }
@@ -72,9 +65,15 @@ namespace IX_Mod
         {
             base.cast(loc);
 
-            if(loc.map.overmind.god is God_Nine god)
+            if (loc.map.overmind.god is God_Nine god)
             {
-                loc.properties.Add(new Pr_Apathy(loc, 1));
+                foreach (Property prop in loc.properties.ToList())
+                {
+                    if (prop is Pr_Apathy ap)
+                    {
+                        ap.charge *= 2;
+                    }
+                }
             }
         }
     }

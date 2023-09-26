@@ -43,7 +43,7 @@ namespace IX_Mod
                 if(msg.msg.Equals("Supplicant's Gospel"))
                 {
                     bool pres = false;
-                    foreach(Unit unit in location.units)
+                    foreach(Unit unit in location.units.ToList())
                     {
                         if(unit is UAE_Supplicant)
                         {
@@ -63,7 +63,7 @@ namespace IX_Mod
                     if(loc.settlement != null && loc.settlement.isHuman)
                     {
                         bool flag = false;
-                        foreach(Property prop in loc.properties)
+                        foreach(Property prop in loc.properties.ToList())
                         {
                             if(prop is Pr_Apathy)
                             {

@@ -109,7 +109,7 @@ namespace IX_Mod
                     utility += 100;
                     msgs?.Add(new ReasonMsg("Is Apostle of IX", 100));
                     bool flag = false;
-                    foreach(Property p in loc.properties)
+                    foreach(Property p in loc.properties.ToList())
                     {
                         if(p is Pr_Apathy ap)
                         {
@@ -132,7 +132,7 @@ namespace IX_Mod
         public override void complete(UA cast)
         {
             map.addUnifiedMessage(cast, cast, "Spread Despair", cast.getName() + " has spread the gospel of IX to " + loc.getName() + ", increasing the Apathy present.", "APATHY SPREAD", force: true);
-            foreach (Property p in loc.properties)
+            foreach (Property p in loc.properties.ToList())
             {
                 if (p is Pr_Apathy ap)
                 {
@@ -144,7 +144,7 @@ namespace IX_Mod
         public override bool valid()
         {
             bool flag = true;
-            foreach (Property p in loc.properties)
+            foreach (Property p in loc.properties.ToList())
             {
                 if(p is Pr_Apathy ap)
                 {

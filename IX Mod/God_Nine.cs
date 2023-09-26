@@ -36,6 +36,8 @@ namespace IX_Mod
              */
             powers.Add(new P_TragicLecture(map));
             powerLevelReqs.Add(0);
+            powers.Add(new P_SelfDeceit(map));
+            powerLevelReqs.Add(1);
             powers.Add(new P_ChooseApostle(map));
             powerLevelReqs.Add(3);
         }
